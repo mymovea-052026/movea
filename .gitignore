@@ -1,0 +1,22 @@
+# Fichiers de configuration sensibles
+.env
+.env.local
+
+# Dossier des dépendances Composer
+/vendor/
+
+# Dossier des dépendances Node.js
+/node_modules/
+
+# Fichiers temporaires et caches
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Dossiers IDE
+.vscode/
+.idea/
+
+# Fichiers PHP de session
+sessions/
