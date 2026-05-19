@@ -20,3 +20,7 @@ Thumbs.db
 
 # Fichiers PHP de session
 sessions/
+
+# Logs (on garde le dossier via .gitkeep, mais on ignore les fichiers .log)
+logs/*
+!logs/.gitkeep

@@ -1,75 +1,66 @@
 <?php
 
 /**
- * MOVEA — Page d'accueil
- *
- * Cette page présente la plateforme MOVEA et affiche
- * des informations dynamiques selon l'heure de la journée.
- *
- * @author  Votre Nom
- * @version 0.2
+ * MOVEA — Page d'accueil (Jour 3 — refactorée avec fonctions)
  */
 
-// ====================================================================
-// 1. Définition des variables du site
-// ====================================================================
-
-// Nom et slogan de la plateforme
-$nomPlateforme = "MOVEA";
-$slogan = "Move Africa, une course à la zone à la fois";
-
-// Informations sur la ville pilote
-$villePilote = "Douala";
-$paysPilote = "Cameroun";
-
-// Tarifs de base (en francs CFA)
-$tarifBaseEnFCFA = 500;          // Prise en charge
-$tarifParKmEnFCFA = 250;          // Prix au kilomètre
-$tarifParMinuteEnFCFA = 50;       // Prix à la minute (attente)
-
-// Statistiques fictives pour l'instant (on les rendra réelles plus tard)
-$nombreChauffeursInscrits = 0;
-$nombreCoursesEffectuees = 0;
-$nombreClientsInscrits = 0;
+require_once __DIR__ . '/../src/functions.php';
 
 // ====================================================================
-// 2. Calcul de l'heure actuelle et du message d'accueil adapté
+// DONNÉES (plus tard : remplacées par la base de données)
 // ====================================================================
 
-// La fonction date() renvoie une partie de la date/heure courante
-// 'H' donne l'heure au format 24h (00 à 23)
-$heureActuelle = (int) date('H');
-
-// Construction du message d'accueil selon l'heure
-if ($heureActuelle < 6) {
-    $messageHoraire = "Bonne nuit";
-} elseif ($heureActuelle < 12) {
-    $messageHoraire = "Bonjour";
-} elseif ($heureActuelle < 18) {
-    $messageHoraire = "Bon après-midi";
-} else {
-    $messageHoraire = "Bonsoir";
-}
+$chauffeurs = [
+    [
+        "prenom" => "Jean",
+        "nom" => "Dupont",
+        "ville"  => "Douala",
+        "zone" => "Bonapriso",
+        "note"   => 4.8,
+        "nombreCourses" => 247,
+        "estActif" => true,
+    ],
+    [
+        "prenom" => "Aïcha",
+        "nom" => "Mbarga",
+        "ville"  => "Douala",
+        "zone" => "Akwa",
+        "note"   => 4.9,
+        "nombreCourses" => 312,
+        "estActif" => true,
+    ],
+    [
+        "prenom" => "Paul",
+        "nom" => "Nguemo",
+        "ville"  => "Douala",
+        "zone" => "Bonamoussadi",
+        "note"   => 4.2,
+        "nombreCourses" => 89,
+        "estActif" => false,
+    ],
+    [
+        "prenom" => "Marie",
+        "nom" => "Eyenga",
+        "ville"  => "Yaoundé",
+        "zone" => "Bastos",
+        "note"   => 4.7,
+        "nombreCourses" => 156,
+        "estActif" => true,
+    ],
+];
 
 // ====================================================================
-// 3. Calcul d'un exemple de prix de course
+// CALCULS (via les fonctions de src/functions.php)
 // ====================================================================
 
-// Exemple : un client veut faire 5 km
-$distanceExempleEnKm = 5;
-$dureeExempleEnMinutes = 12;
+$heureActuelle    = (int) date('H');
+$messageAccueil   = obtenirMessageHoraire($heureActuelle);
+$prixExemple      = calculerPrixCourse(5, 12);
+$noteMoyenne      = calculerNoteMoyenne($chauffeurs);
+$chauffeursActifs = compterChauffeursActifs($chauffeurs);
 
-$prixCourseExemple = $tarifBaseEnFCFA
-    + ($tarifParKmEnFCFA * $distanceExempleEnKm)
-    + ($tarifParMinuteEnFCFA * $dureeExempleEnMinutes);
-
-// ====================================================================
-// 4. Date et heure complètes pour affichage
-// ====================================================================
-
-// setlocale et strftime sont obsolètes — on utilise date() directement
-$dateDuJour = date('d/m/Y');           // Format JJ/MM/AAAA
-$heureComplete = date('H:i:s');        // Format HH:MM:SS
+$dateDuJour    = date('d/m/Y');
+$heureComplete = date('H:i:s');
 
 ?>
 <!DOCTYPE html>
@@ -77,14 +68,14 @@ $heureComplete = date('H:i:s');        // Format HH:MM:SS
 
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $nomPlateforme; ?> — Accueil</title>
+    <title>MOVEA — Move Africa</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
+            max-width: 900px;
+            margin: 30px auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background: #f5f5f5;
             color: #333;
         }
 
@@ -94,9 +85,9 @@ $heureComplete = date('H:i:s');        // Format HH:MM:SS
             padding-bottom: 10px;
         }
 
-        .salutation {
-            font-size: 1.5em;
+        h2 {
             color: #2E75B6;
+            margin-top: 30px;
         }
 
         .slogan {
@@ -104,72 +95,111 @@ $heureComplete = date('H:i:s');        // Format HH:MM:SS
             color: #666;
         }
 
-        .info-box {
-            background: white;
-            border-left: 4px solid #2E75B6;
-            padding: 15px;
+        .stats {
+            display: flex;
+            gap: 15px;
             margin: 20px 0;
-            border-radius: 4px;
+            flex-wrap: wrap;
         }
 
-        .prix {
-            font-size: 1.3em;
+        .stat {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            text-align: center;
+            border-left: 4px solid #2E75B6;
+        }
+
+        .stat .nombre {
+            font-size: 1.8em;
             font-weight: bold;
             color: #2E75B6;
         }
 
+        .stat .label {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .chauffeur {
+            background: white;
+            border: 1px solid #ddd;
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .chauffeur.inactif {
+            border-left-color: #e74c3c;
+            opacity: 0.6;
+        }
+
+        .note {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
         footer {
             margin-top: 40px;
+            text-align: center;
             color: #999;
             font-size: 0.9em;
-            text-align: center;
         }
     </style>
 </head>
 
 <body>
 
-    <h1><?= $nomPlateforme; ?></h1>
+    <h1>MOVEA</h1>
+    <p class="slogan">Move Africa, une course à la zone à la fois</p>
+    <p><strong><?= $messageAccueil ?></strong>, bienvenue sur la plateforme.</p>
 
-    <p class="salutation">
-        <?php echo $messageHoraire; ?>, bienvenue sur la plateforme.
-    </p>
+    <h2>Notre activité aujourd'hui</h2>
 
-    <p class="slogan"><?php echo $slogan; ?></p>
-
-    <div class="info-box">
-        <strong>Ville pilote :</strong>
-        <?php echo $villePilote; ?>, <?php echo $paysPilote; ?>
+    <div class="stats">
+        <div class="stat">
+            <div class="nombre"><?= count($chauffeurs) ?></div>
+            <div class="label">Chauffeurs inscrits</div>
+        </div>
+        <div class="stat">
+            <div class="nombre"><?= $chauffeursActifs ?></div>
+            <div class="label">Actuellement actifs</div>
+        </div>
+        <div class="stat">
+            <div class="nombre"><?= number_format($noteMoyenne, 2) ?></div>
+            <div class="label">Note moyenne /5</div>
+        </div>
+        <div class="stat">
+            <div class="nombre"><?= $prixExemple ?></div>
+            <div class="label">Prix course exemple (FCFA)</div>
+        </div>
     </div>
 
-    <div class="info-box">
-        <strong>Exemple de tarif</strong> pour une course de
-        <?php echo $distanceExempleEnKm; ?> km
-        durée
-        <?php echo $dureeExempleEnMinutes; ?> minutes :
-        <br>
-        <span class="prix">
-            <?php echo $prixCourseExemple; ?> FCFA
-        </span>
-        <br>
-        <small>
-            (Prise en charge : <?php echo $tarifBaseEnFCFA; ?> FCFA
-            + Kilomètres : <?php echo $tarifParKmEnFCFA * $distanceExempleEnKm; ?> FCFA
-            + Temps : <?php echo $tarifParMinuteEnFCFA * $dureeExempleEnMinutes; ?> FCFA)
-        </small>
-    </div>
+    <h2>Nos chauffeurs</h2>
 
-    <div class="info-box">
-        <strong>Statistiques :</strong><br>
-        Chauffeurs inscrits : <?php echo $nombreChauffeursInscrits; ?><br>
-        Clients inscrits : <?php echo $nombreClientsInscrits; ?><br>
-        Courses effectuées : <?php echo $nombreCoursesEffectuees; ?>
-    </div>
+    <?php foreach ($chauffeurs as $chauffeur): ?>
+        <?php $classe = $chauffeur["estActif"] ? "" : "inactif"; ?>
+        <div class="chauffeur <?= $classe ?>">
+            <h3>
+                <?= $chauffeur["prenom"] ?> <?= $chauffeur["nom"] ?>
+                <?php if (!$chauffeur["estActif"]): ?>
+                    <small>(inactif)</small>
+                <?php endif; ?>
+            </h3>
+            <p>
+                📍 <?= $chauffeur["ville"] ?>, zone <?= $chauffeur["zone"] ?><br>
+                <span class="note">⭐ <?= $chauffeur["note"] ?>/5</span>
+                — <?= $chauffeur["nombreCourses"] ?> courses
+            </p>
+        </div>
+    <?php endforeach; ?>
 
     <footer>
-        Page générée le <?php echo $dateDuJour; ?>
-        à <?php echo $heureComplete; ?>
-        — MOVEA v0.2
+        Page générée le <?= $dateDuJour ?> à <?= $heureComplete ?> — MOVEA v0.3
     </footer>
 
 </body>
