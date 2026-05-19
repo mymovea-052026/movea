@@ -52,4 +52,37 @@ restore --staged fichier : Retire un fichier de la zone d'attente
 
 ### Préparation Jour 3
 
-(à compléter selon ce que Claude propose)
+---
+
+## Jour 3 — 19/05/2026
+
+### Ce que j'ai appris aujourd'hui
+
+- Les tableaux indexés `[1, 2, 3]` et associatifs `["cle" => "valeur"]`
+- Les tableaux multidimensionnels (tableau de tableaux)
+- La boucle `foreach` et sa syntaxe alternative `foreach ... endforeach`
+- Les boucles `for` (compteur) et `while` (condition)
+- L'opérateur ternaire `condition ? si_vrai : si_faux`
+- L'opérateur d'incrémentation `$i++`
+- Créer mes propres fonctions avec `function nom() { return ... }`
+- Paramètres avec valeurs par défaut
+- La portée des variables (les variables externes n'existent pas dans une fonction)
+- `require_once` et `__DIR__` pour inclure des fichiers
+- Le principe DRY : Don't Repeat Yourself
+- Les fonctions natives : `count()`, `isset()`, `array_push()`, `number_format()`
+
+### Ce que j'ai produit
+
+- Page d'accueil refactorée avec liste de 4 chauffeurs et statistiques
+- Fichier `src/functions.php` avec 4 fonctions réutilisables
+- Calcul automatique de la note moyenne et du nombre de chauffeurs actifs
+
+### Difficultés rencontrées
+
+RAS
+
+### Concepts à revoir si besoin
+
+- La différence entre tableau indexé `[1, 2, 3]` et associatif `["a" => 1]`
+- Pourquoi `$tarifBase = 500;` à l'extérieur d'une fonction n'est PAS accessible à l'intérieur
+- La différence entre `print_r()` et `var_dump()`
