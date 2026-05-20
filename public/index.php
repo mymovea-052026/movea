@@ -156,6 +156,7 @@ $heureComplete = date('H:i:s');
 
     <h1>MOVEA</h1>
     <p class="slogan">Move Africa, une course à la zone à la fois</p>
+    <p><a href="calculateur.php" style="color:#2E75B6; font-weight:bold;">→ Estimer le prix d'une course</a></p>
     <p><strong><?= $messageAccueil ?></strong>, bienvenue sur la plateforme.</p>
 
     <h2>Notre activité aujourd'hui</h2>
