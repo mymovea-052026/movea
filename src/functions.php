@@ -71,3 +71,34 @@ function compterChauffeursActifs($chauffeurs)
     }
     return $compteur;
 }
+
+/**
+ * Calcule le prix d'une course avec application d'un multiplicateur de surge.
+ *
+ * Le surge (tarification dynamique) augmente le prix en période de forte
+ * demande. Il est plafonné à 2.5x pour des raisons éthiques.
+ *
+ * @param  float $distanceEnKm    Distance de la course en km
+ * @param  int   $dureeEnMinutes  Durée estimée en minutes
+ * @param  float $surge           Multiplicateur (1.0 = normal, max 2.5)
+ * @return int                    Prix final en FCFA, arrondi
+ */
+function calculerPrixAvecSurge($distanceEnKm, $dureeEnMinutes, $surge = 1.0)
+{
+    // Plafond éthique : on ne dépasse jamais 2.5x
+    if ($surge > 2.5) {
+        $surge = 2.5;
+    }
+    // Plancher : le surge ne peut pas réduire le prix sous le tarif normal
+    if ($surge < 1.0) {
+        $surge = 1.0;
+    }
+
+    // On réutilise la fonction de prix de base existante (principe DRY)
+    $prixBase = calculerPrixCourse($distanceEnKm, $dureeEnMinutes);
+
+    // On applique le multiplicateur et on arrondit à l'entier
+    $prixFinal = round($prixBase * $surge);
+
+    return $prixFinal;
+}
