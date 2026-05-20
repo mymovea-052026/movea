@@ -86,3 +86,39 @@ RAS
 - La différence entre tableau indexé `[1, 2, 3]` et associatif `["a" => 1]`
 - Pourquoi `$tarifBase = 500;` à l'extérieur d'une fonction n'est PAS accessible à l'intérieur
 - La différence entre `print_r()` et `var_dump()`
+
+---
+
+## Jour 3 — 20/05/2026
+
+### Ce que j'ai appris aujourd'hui
+
+- Tableaux indexés et associatifs
+- Tableaux multidimensionnels (liste de chauffeurs)
+- Boucle foreach (avec et sans clé)
+- Fonctions : déclaration, paramètres, valeur par défaut, return
+- Le piège du `=` (affectation) vs `==` / `===` (comparaison)
+- Tableau associatif comme compteur (répartition par ville)
+- Technique du "champion provisoire" (trouver le maximum)
+- Clamp / plafonnement d'une valeur (surge plafonné à 2.5)
+- Une fonction peut en appeler une autre (DRY)
+- `round()` pour arrondir, `number_format()` pour formater
+- PSR-12 : le formatage automatique met l'accolade des fonctions sur une nouvelle ligne
+
+### Ce que j'ai produit
+
+- 5 fonctions dans src/functions.php (dont le moteur de surge pricing)
+- Page d'accueil refactorée avec stats et liste de chauffeurs
+- 5 exercices d'application réalisés
+
+### Difficultés rencontrées
+
+- Confusion functions.php (anglais) vs fonctions.php (français) — résolu par renommage
+- Erreur "Undefined function" car la 5e fonction n'avait pas été collée dans functions.php
+- Le piège `=` au lieu de `==` dans l'exercice 4 (à toujours surveiller)
+
+### Concepts à revoir si besoin
+
+- Le piège `=` vs `==` vs `===`
+- La technique du "champion provisoire" pour trouver un maximum
+- Le tableau associatif utilisé comme compteur
