@@ -122,3 +122,40 @@ RAS
 - Le piège `=` vs `==` vs `===`
 - La technique du "champion provisoire" pour trouver un maximum
 - Le tableau associatif utilisé comme compteur
+
+---
+
+## Jour 4 — 21/05/2026
+
+### Ce que j'ai appris aujourd'hui
+
+- Le cycle requête / réponse entre navigateur (client) et serveur
+- PHP s'exécute côté serveur ; le navigateur ne reçoit que du HTML
+- Les formulaires HTML : `<form>`, `<input name="...">`, `method`, `action`
+- L'importance de l'attribut `name` sur les champs
+- Les superglobales `$_GET` et `$_POST`
+- Quand utiliser GET (consulter) vs POST (modifier/sensible)
+- La validation des données : présence, type, plage
+- Le patron "collecter les erreurs puis agir si tout est valide"
+- `is_numeric()` pour vérifier qu'une valeur est un nombre
+- Les conversions de type `(float)` et `(int)`
+- L'attaque XSS et la protection avec `htmlspecialchars()`
+- Les opérateurs logiques `&&` (ET), `||` (OU), `!` (NON)
+
+### Ce que j'ai produit
+
+- Un calculateur de prix de course fonctionnel et sécurisé
+- Validation complète des entrées (refus des valeurs invalides)
+- Réaffichage des valeurs saisies après calcul
+- Un lien depuis la page d'accueil
+
+### Difficultés rencontrées
+
+(à compléter par moi)
+
+### Concepts à revoir si besoin
+
+- La différence entre `$_GET` et `$_POST` et quand utiliser chacun
+- Pourquoi toujours valider les données utilisateur
+- Pourquoi toujours utiliser `htmlspecialchars()` à l'affichage
+- Le patron de validation (tableau $erreurs)
