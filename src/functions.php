@@ -102,3 +102,19 @@ function calculerPrixAvecSurge($distanceEnKm, $dureeEnMinutes, $surge = 1.0)
 
     return $prixFinal;
 }
+
+/**
+ * Vérifie que l'utilisateur est connecté.
+ * Si non, redirige vers la page de connexion et arrête le script.
+ *
+ * À appeler en haut de chaque page protégée, APRÈS session_start().
+ *
+ * @return void
+ */
+function exigerConnexion()
+{
+    if (!isset($_SESSION["estConnecte"]) || $_SESSION["estConnecte"] !== true) {
+        header('Location: connexion.php');
+        exit;
+    }
+}

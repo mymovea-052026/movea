@@ -201,6 +201,7 @@ $heureComplete = date('H:i:s');
 
     <footer>
         Page générée le <?= $dateDuJour ?> à <?= $heureComplete ?> — MOVEA v0.3
+        <br><a href="connexion.php" style="color:#999;">Espace administration</a>
     </footer>
 
 </body>
