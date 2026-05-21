@@ -159,3 +159,41 @@ RAS
 - Pourquoi toujours valider les données utilisateur
 - Pourquoi toujours utiliser `htmlspecialchars()` à l'affichage
 - Le patron de validation (tableau $erreurs)
+
+---
+
+## Jour 5 — 21/05/2026
+
+### Ce que j'ai appris aujourd'hui
+
+- Le web est "sans état" (stateless) ; les sessions donnent une mémoire
+- `session_start()` au tout début de chaque page utilisant les sessions
+- La superglobale `$_SESSION` qui persiste entre les pages
+- La différence sessions (serveur) vs cookies (navigateur)
+- Les redirections avec `header('Location: ...')` + `exit;`
+- Le piège "headers already sent" (logique PHP en haut, HTML en bas)
+- NE JAMAIS stocker un mot de passe en clair
+- Le hachage avec `password_hash()` et `password_verify()`
+- Construire une page de connexion sécurisée
+- Protéger une page (fonction `exigerConnexion()`)
+- La déconnexion (`session_destroy()`)
+- Message d'erreur volontairement vague (sécurité)
+- Convention du fichier `.example` versionné + fichier réel ignoré
+
+### Ce que j'ai produit
+
+- Une page de connexion (connexion.php)
+- Un espace admin protégé (admin.php)
+- Une déconnexion (deconnexion.php)
+- Une fonction réutilisable exigerConnexion()
+- Un système d'authentification complet et fonctionnel
+
+### Difficultés rencontrées
+
+(à compléter par moi)
+
+### Concepts à revoir si besoin
+
+- Pourquoi session_start() doit être avant tout affichage
+- La différence entre password_hash (créer) et password_verify (vérifier)
+- Pourquoi on ne stocke jamais un mot de passe en clair
