@@ -118,3 +118,93 @@ function exigerConnexion()
         exit;
     }
 }
+
+
+// Ajouter apres le cours
+
+/**
+ * Renvoie la liste complète des chauffeurs (données de test).
+ * En semaine 3, ces données viendront de la base MySQL.
+ *
+ * @return array
+ */
+function obtenirTousLesChauffeurs()
+{
+    return [
+        ["prenom" => "Jean",   "nom" => "Dupont", "ville" => "Douala",  "zone" => "Bonapriso",    "note" => 4.8, "nombreCourses" => 247, "estActif" => true],
+        ["prenom" => "Aïcha",  "nom" => "Mbarga", "ville" => "Douala",  "zone" => "Akwa",         "note" => 4.9, "nombreCourses" => 312, "estActif" => true],
+        ["prenom" => "Paul",   "nom" => "Nguemo", "ville" => "Douala",  "zone" => "Bonamoussadi", "note" => 4.2, "nombreCourses" => 89,  "estActif" => false],
+        ["prenom" => "Marie",  "nom" => "Eyenga", "ville" => "Yaoundé", "zone" => "Bastos",       "note" => 4.7, "nombreCourses" => 156, "estActif" => true],
+        ["prenom" => "Samuel", "nom" => "Fotso",  "ville" => "Douala",  "zone" => "Deido",        "note" => 4.5, "nombreCourses" => 198, "estActif" => true],
+        ["prenom" => "Estelle", "nom" => "Kamga",  "ville" => "Yaoundé", "zone" => "Mvan",         "note" => 3.9, "nombreCourses" => 54,  "estActif" => false],
+        ["prenom" => "Brice",  "nom" => "Talla",  "ville" => "Douala",  "zone" => "Bonapriso",    "note" => 4.6, "nombreCourses" => 271, "estActif" => true],
+    ];
+}
+
+/**
+ * Filtre une liste de chauffeurs selon des critères optionnels.
+ *
+ * @param  array  $chauffeurs  La liste à filtrer
+ * @param  string $ville       Ville recherchée (vide = toutes)
+ * @param  string $statut      "actif", "inactif" ou "" (tous)
+ * @param  float  $noteMin     Note minimale (0 = pas de filtre)
+ * @return array               La liste filtrée
+ */
+function filtrerChauffeurs($chauffeurs, $ville = "", $statut = "", $noteMin = 0)
+{
+    $resultats = [];
+
+    foreach ($chauffeurs as $chauffeur) {
+        // Filtre ville (insensible à la casse)
+        if ($ville !== "" && strcasecmp($chauffeur["ville"], $ville) !== 0) {
+            continue; // on saute ce chauffeur
+        }
+
+        // Filtre statut
+        if ($statut === "actif" && !$chauffeur["estActif"]) {
+            continue;
+        }
+        if ($statut === "inactif" && $chauffeur["estActif"]) {
+            continue;
+        }
+
+        // Filtre note minimale
+        if ($noteMin > 0 && $chauffeur["note"] < $noteMin) {
+            continue;
+        }
+
+        // Si on arrive ici, le chauffeur passe tous les filtres
+        $resultats[] = $chauffeur;
+    }
+
+    return $resultats;
+}
+
+/**
+ * Calcule des statistiques sur une liste de chauffeurs.
+ *
+ * @param  array $chauffeurs
+ * @return array  Tableau associatif avec total, actifs, noteMoyenne, totalCourses
+ */
+function calculerStatistiques($chauffeurs)
+{
+    $total = count($chauffeurs);
+    $actifs = 0;
+    $sommeNotes = 0;
+    $totalCourses = 0;
+
+    foreach ($chauffeurs as $chauffeur) {
+        if ($chauffeur["estActif"]) {
+            $actifs++;
+        }
+        $sommeNotes += $chauffeur["note"];
+        $totalCourses += $chauffeur["nombreCourses"];
+    }
+
+    return [
+        "total"        => $total,
+        "actifs"       => $actifs,
+        "noteMoyenne"  => $total > 0 ? $sommeNotes / $total : 0,
+        "totalCourses" => $totalCourses,
+    ];
+}
