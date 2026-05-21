@@ -197,3 +197,40 @@ RAS
 - Pourquoi session_start() doit être avant tout affichage
 - La différence entre password_hash (créer) et password_verify (vérifier)
 - Pourquoi on ne stocke jamais un mot de passe en clair
+
+---
+
+## Jour 6 — 21/05/2026 — Fin de la semaine 1
+
+### Ce que j'ai accompli aujourd'hui
+
+- Quiz de révision des jours 1 à 5
+- Construit un panneau d'administration des chauffeurs complet
+- Combiné TOUS les concepts de la semaine dans une seule page :
+  sessions, protection, tableaux, fonctions, formulaires, validation, sécurité
+- Découvert `continue` (sauter un tour de boucle)
+- Découvert `in_array()` (vérifier qu'une valeur est dans un tableau)
+- Filtres dynamiques (ville, statut, note) avec recalcul automatique des stats
+
+### Ce que j'ai produit
+
+- admin-chauffeurs.php : un vrai outil de gestion de flotte
+- 3 nouvelles fonctions : obtenirTousLesChauffeurs, filtrerChauffeurs, calculerStatistiques
+
+### Bilan de la semaine 1
+
+J'ai appris en 6 jours :
+
+- L'environnement de développement (XAMPP, VS Code, Git, GitHub)
+- PHP : variables, tableaux, boucles, fonctions
+- Formulaires, validation, sécurité (XSS)
+- Sessions, hachage de mot de passe, système de connexion
+
+### Concepts encore un peu flous (à revoir)
+
+(à compléter par moi — soyez honnête, ça aide à cibler les révisions)
+
+### Préparation semaine 2
+
+La semaine 2 portera sur la POO (Programmation Orientée Objet) :
+classes, objets, propriétés, méthodes, héritage.
