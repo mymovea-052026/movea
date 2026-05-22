@@ -65,7 +65,7 @@ $login = $_SESSION["login"];
         <p>Plus tard, on affichera ici les vraies statistiques de MOVEA :
             nombre de courses du jour, chauffeurs actifs, revenus, etc.</p>
 
-        <p><a href="admin-chauffeurs.php" style="color:#2E75B6; font-weight:bold;">→ Gérer les chauffeurs</a></p>
+        <p><a href="admin-chauffeurs.php" style="color:#2E75B6; font-weight:bold;"> → Gérer les chauffeurs</a></p>
     </div>
 
     <div class="carte">

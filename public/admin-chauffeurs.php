@@ -36,6 +36,14 @@ $chauffeursFiltres = filtrerChauffeurs(
 // --- Calcul des statistiques sur les résultats filtrés ---
 $stats = calculerStatistiques($chauffeursFiltres);
 
+// --- Trouver le chauffeur le mieux noté parmi les résultats filtrés ---
+$meilleurChauffeur = null;
+foreach ($chauffeursFiltres as $chauffeur) {
+    if ($meilleurChauffeur === null || $chauffeur["note"] > $meilleurChauffeur["note"]) {
+        $meilleurChauffeur = $chauffeur;
+    }
+}
+
 $login = $_SESSION["login"];
 ?>
 <!DOCTYPE html>
@@ -171,6 +179,14 @@ $login = $_SESSION["login"];
             background: #f9f9f9;
         }
 
+        tr.meilleur {
+            background: #fff8e1;
+        }
+
+        tr.meilleur:hover {
+            background: #fff3cd;
+        }
+
         .badge {
             padding: 3px 10px;
             border-radius: 12px;
@@ -274,12 +290,20 @@ $login = $_SESSION["login"];
                     <th>Note</th>
                     <th>Courses</th>
                     <th>Statut</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($chauffeursFiltres as $chauffeur): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($chauffeur["prenom"]) ?> <?= htmlspecialchars($chauffeur["nom"]) ?></td>
+                <?php foreach ($chauffeursFiltres as $index => $chauffeur): ?>
+                    <?php
+                    // Est-ce le meilleur chauffeur ? On compare sur des champs uniques.
+                    $estLeMeilleur = ($meilleurChauffeur !== null
+                        && $chauffeur["prenom"] === $meilleurChauffeur["prenom"]
+                        && $chauffeur["nom"] === $meilleurChauffeur["nom"]);
+                    $classeLigne = $estLeMeilleur ? "meilleur" : "";
+                    ?>
+                    <tr class="<?= $classeLigne ?>">
+                        <td><?= htmlspecialchars($chauffeur["prenom"]) ?> <?= htmlspecialchars($chauffeur["nom"]) ?> <?php if ($estLeMeilleur): ?> 🏆<?php endif; ?></td>
                         <td><?= htmlspecialchars($chauffeur["ville"]) ?></td>
                         <td><?= htmlspecialchars($chauffeur["zone"]) ?></td>
                         <td class="note">⭐ <?= $chauffeur["note"] ?></td>
@@ -290,6 +314,20 @@ $login = $_SESSION["login"];
                             <?php else: ?>
                                 <span class="badge inactif">Inactif</span>
                             <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php
+                            // On retrouve l'index réel de ce chauffeur dans la liste complète
+                            $indexReel = null;
+                            foreach ($tousLesChauffeurs as $i => $c) {
+                                if ($c["prenom"] === $chauffeur["prenom"] && $c["nom"] === $chauffeur["nom"]) {
+                                    $indexReel = $i;
+                                    break;
+                                }
+                            }
+                            ?>
+                            <a href="chauffeur-detail.php?id=<?= $indexReel ?>"
+                                style="color:#2E75B6; text-decoration:none;">Détail →</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
