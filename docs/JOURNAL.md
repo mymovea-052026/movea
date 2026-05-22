@@ -234,3 +234,35 @@ J'ai appris en 6 jours :
 
 La semaine 2 portera sur la POO (Programmation Orientée Objet) :
 classes, objets, propriétés, méthodes, héritage.
+
+---
+
+## Jour 8 — [date du jour]
+
+### Ce que j'ai appris aujourd'hui
+
+- Le constructeur `__construct()` : initialise l'objet à sa création
+- Créer un objet complet en UNE ligne : new Chauffeur("Jean", ...)
+- Distinction $this->prenom (propriété) vs $prenom (paramètre)
+- Le typage des propriétés : string, int, float, bool
+- Typer les paramètres et les valeurs de retour (: string, : bool...)
+- Le typage protège contre les valeurs absurdes (erreur immédiate)
+- Une collection d'objets : un tableau qui contient des objets
+- Parcourir des objets avec foreach et appeler leurs méthodes
+- Une méthode peut appeler une autre méthode via $this->
+- Logique métier regroupée dans la classe (catégorie, bonus...)
+
+### Ce que j'ai produit
+
+- Classe Chauffeur enrichie : constructeur + typage + 6 méthodes
+- Manipulation d'une collection d'objets avec statistiques
+
+### Niveau de compréhension (honnête)
+
+(à compléter par moi : le constructeur est-il clair ? le typage ?)
+
+### Concepts à revoir si besoin
+
+- La différence $this->prenom vs $prenom dans le constructeur
+- L'ordre des arguments lors de la création (new Chauffeur(...))
+- Pourquoi typer les propriétés
